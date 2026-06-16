@@ -23,27 +23,53 @@ import {
 } from "react-icons/fa";
 
 const AMNEN = [
-  { icon: FaHandsHelping, label: "Vård och omsorg", href: "/vard-och-omsorg/grundlaggande-omvardnad" },
-  { icon: FaStethoscope, label: "Medicin", href: "#medicin" },
-  { icon: FaBrain, label: "Psykiatri", href: "#psykiatri" },
-  { icon: FaUserAlt, label: "Gerontologi och geriatrik", href: "#gerontologi" },
-  { icon: FaWheelchair, label: "Funktionsförmåga", href: "#funktionsformaga" },
-  { icon: FaHospitalAlt, label: "Hälso- och sjukvård", href: "#halso-sjukvard" },
-  { icon: FaBalanceScale, label: "Etik och människosyn", href: "#etik" },
-  { icon: FaGavel, label: "Lagar och regler", href: "#lagar" },
-  { icon: FaComments, label: "Kommunikation", href: "#kommunikation" },
-  { icon: FaLightbulb, label: "Fokusera särskilt på", href: "#fokus" },
+  { icon: FaHandsHelping, label: "Vård och omsorg",                  href: "/#vard-och-omsorg" },
+  { icon: FaStethoscope,  label: "Medicin",                          href: "/#medicin" },
+  { icon: FaBrain,        label: "Psykiatri",                        href: "/#psykiatri" },
+  { icon: FaUserAlt,      label: "Gerontologi och geriatrik",        href: "/#gerontologi" },
+  { icon: FaWheelchair,   label: "Funktionsförmåga",                 href: "/#funktionsformaga" },
+  { icon: FaHospitalAlt,  label: "Hälso- och sjukvård",             href: "/#halso-sjukvard" },
+  { icon: FaBalanceScale, label: "Etik och människosyn",            href: "/#etik" },
+  { icon: FaGavel,        label: "Lagar och regler",                 href: "/#lagar" },
+  { icon: FaComments,     label: "Kommunikation",                    href: "/#kommunikation" },
+  { icon: FaLightbulb,    label: "Fokusera särskilt på",             href: "/#fokus" },
 ];
+
+// Isolated so its own useEffect only handles the mounted guard for next-themes.
+function ThemeToggle({ className }: { className?: string }) {
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
+
+  const base =
+    "rounded-md p-2 text-foreground hover:bg-accent hover:text-accent-foreground transition-colors";
+
+  if (!mounted) {
+    // Placeholder keeps layout stable during hydration
+    return <span className={`inline-block w-8 h-8 ${className ?? ""}`} />;
+  }
+
+  return (
+    <button
+      onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+      aria-label="Byt tema"
+      className={`${base} ${className ?? ""}`}
+    >
+      {resolvedTheme === "dark" ? <FaSun /> : <FaMoon />}
+    </button>
+  );
+}
 
 export function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const { resolvedTheme, setTheme } = useTheme();
 
   useEffect(() => {
-    setMounted(true);
     function handleClickOutside(e: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
         setDropdownOpen(false);
@@ -53,11 +79,8 @@ export function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const isDark = mounted && resolvedTheme === "dark";
-  const ThemeIcon = isDark ? FaSun : FaMoon;
-
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/80">
       <nav className="container mx-auto flex h-16 items-center justify-between px-6">
 
         {/* Logotyp */}
@@ -112,24 +135,12 @@ export function Navbar() {
             Börja studera
           </Button>
 
-          <button
-            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-            aria-label="Byt tema"
-            className="ml-1 rounded-md p-2 text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
-          >
-            <ThemeIcon />
-          </button>
+          <ThemeToggle className="ml-1" />
         </div>
 
         {/* Mobil: tema + hamburger */}
         <div className="flex items-center gap-2 md:hidden">
-          <button
-            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-            aria-label="Byt tema"
-            className="rounded-md p-2 text-foreground hover:bg-accent transition-colors"
-          >
-            <ThemeIcon />
-          </button>
+          <ThemeToggle />
           <button
             onClick={() => setMobileOpen((v) => !v)}
             aria-label={mobileOpen ? "Stäng meny" : "Öppna meny"}
