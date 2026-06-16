@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { IconType } from "react-icons";
 import {
   FaHandsHelping,
@@ -15,69 +16,132 @@ import {
 interface FeatureItem {
   Icon: IconType;
   title: string;
-  description: string;
+  items: string[];
+  links?: Record<string, string>;
 }
 
 const FEATURE_DATA: FeatureItem[] = [
   {
     Icon: FaHandsHelping,
     title: "Vård och omsorg",
-    description:
-      "Grundläggande omvårdnad, personlig hygien, förflyttningsteknik, nutrition, sömn och vila, observation av patienters hälsotillstånd, dokumentation och rapportering.",
+    links: {
+      "Grundläggande omvårdnad": "/vard-och-omsorg/grundlaggande-omvardnad",
+    },
+    items: [
+      "Grundläggande omvårdnad",
+      "Personlig hygien",
+      "Förflyttningsteknik",
+      "Nutrition och kost",
+      "Sömn och vila",
+      "Observation av patienters hälsotillstånd",
+      "Dokumentation och rapportering",
+    ],
   },
   {
     Icon: FaStethoscope,
     title: "Medicin",
-    description:
-      "Anatomi, fysiologi, vanliga sjukdomar, symtom och behandlingar, grundläggande läkemedelshantering, smitta och infektioner.",
+    items: [
+      "Anatomi (kroppens uppbyggnad)",
+      "Fysiologi (hur kroppen fungerar)",
+      "Vanliga sjukdomar",
+      "Symtom och behandlingar",
+      "Läkemedelshantering (grundläggande)",
+      "Smitta och infektioner",
+    ],
   },
   {
     Icon: FaBrain,
     title: "Psykiatri",
-    description:
-      "Kunskap om psykisk hälsa och ohälsa, depression, ångest, bipolär sjukdom, schizofreni, neuropsykiatriska funktionsnedsättningar och bemötande inom psykiatrisk vård.",
+    items: [
+      "Depression",
+      "Ångest",
+      "Bipolär sjukdom",
+      "Schizofreni",
+      "Neuropsykiatriska funktionsnedsättningar (ADHD, autism)",
+      "Bemötande inom psykiatrisk vård",
+    ],
   },
   {
     Icon: FaUserAlt,
     title: "Gerontologi och geriatrik",
-    description:
-      "Normalt åldrande, demenssjukdomar, fallrisker, äldres hälsa och palliativ vård.",
+    items: [
+      "Normalt åldrande",
+      "Demenssjukdomar",
+      "Fallrisker",
+      "Äldres hälsa",
+      "Palliativ vård",
+    ],
   },
   {
     Icon: FaWheelchair,
     title: "Funktionsförmåga och funktionsnedsättning",
-    description:
-      "Fysiska och intellektuella funktionsnedsättningar, hjälpmedel, LSS-verksamhet, delaktighet och självbestämmande.",
+    items: [
+      "Fysiska funktionsnedsättningar",
+      "Intellektuella funktionsnedsättningar",
+      "Hjälpmedel",
+      "LSS-verksamhet",
+      "Delaktighet och självbestämmande",
+    ],
   },
   {
     Icon: FaHospitalAlt,
     title: "Hälso- och sjukvård",
-    description:
-      "Vårdens organisation i Sverige, patientsäkerhet, hygienrutiner, arbetsmiljö och vårdrelaterade infektioner.",
+    items: [
+      "Vårdens organisation i Sverige",
+      "Patientsäkerhet",
+      "Hygienrutiner",
+      "Arbetsmiljö",
+      "Vårdrelaterade infektioner",
+    ],
   },
   {
     Icon: FaBalanceScale,
     title: "Etik och människosyn",
-    description:
-      "Etiska dilemman, integritet, tystnadsplikt, sekretess, självbestämmande och professionellt bemötande.",
+    items: [
+      "Etiska dilemman",
+      "Integritet",
+      "Tystnadsplikt",
+      "Sekretess",
+      "Självbestämmande",
+      "Professionellt bemötande",
+    ],
   },
   {
     Icon: FaGavel,
     title: "Lagar och regler",
-    description:
-      "Socialstyrelsens föreskrifter, Hälso- och sjukvårdslagen (HSL), Patientsäkerhetslagen, Patientlagen, Socialtjänstlagen (SoL) och LSS.",
+    items: [
+      "Socialstyrelsens föreskrifter",
+      "Hälso- och sjukvårdslagen (HSL)",
+      "Patientsäkerhetslagen",
+      "Patientlagen",
+      "Socialtjänstlagen (SoL)",
+      "LSS",
+    ],
   },
   {
     Icon: FaComments,
     title: "Kommunikation",
-    description:
-      "Samtal med patienter och anhöriga, aktivt lyssnande, konflikthantering, dokumentation och samarbete i vårdteam.",
+    items: [
+      "Samtal med patienter och anhöriga",
+      "Aktivt lyssnande",
+      "Konflikthantering",
+      "Dokumentation",
+      "Samarbete i vårdteam",
+    ],
   },
   {
     Icon: FaLightbulb,
     title: "Fokusera särskilt på",
-    description:
-      "Anatomi och fysiologi, vanliga sjukdomar, hygienrutiner och smittspridning, demens och äldreomsorg, psykiatriska diagnoser, etik och sekretess, HSL, SoL och LSS, samt omvårdnadsprocessen.",
+    items: [
+      "Anatomi och fysiologi",
+      "Vanliga sjukdomar",
+      "Hygienrutiner och smittspridning",
+      "Demens och äldreomsorg",
+      "Psykiatriska diagnoser",
+      "Etik och sekretess",
+      "HSL, SoL och LSS",
+      "Omvårdnadsprocessen (observera–planera–genomföra–utvärdera)",
+    ],
   },
 ];
 
@@ -93,12 +157,31 @@ export function Features() {
   );
 }
 
-function FeatureCard({ Icon, title, description }: FeatureItem) {
+function FeatureCard({ Icon, title, items, links }: FeatureItem) {
   return (
     <div className="rounded-2xl border p-6 transition-shadow hover:shadow-md hover:border-primary">
       <Icon className="text-4xl mb-4 text-primary" />
       <h3 className="font-semibold text-xl">{title}</h3>
-      <p className="mt-2 text-muted-foreground">{description}</p>
+      <ul className="mt-2 space-y-1 text-muted-foreground">
+        {items.map((item, i) => {
+          const href = links?.[item];
+          return (
+            <li key={i} className="flex items-start gap-2">
+              <span className="mt-1 shrink-0">•</span>
+              {href ? (
+                <Link
+                  href={href}
+                  className="text-primary underline-offset-2 hover:underline font-medium"
+                >
+                  {item}
+                </Link>
+              ) : (
+                <span>{item}</span>
+              )}
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }
