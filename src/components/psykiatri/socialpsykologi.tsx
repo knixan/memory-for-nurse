@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import React from "react";
 import {
   FaHandsHelping,
-  FaShieldAlt,
   FaCheck,
   FaTimes,
   FaEye,
@@ -13,9 +12,6 @@ import {
   FaSync,
   FaHeart,
   FaStar,
-  FaUserAlt,
-  FaBrain,
-  FaComments,
   FaLightbulb,
   FaBalanceScale,
   FaGavel,
@@ -56,179 +52,156 @@ const CARD_COLORS = [
   "text-emerald-600 dark:text-emerald-400", "text-rose-600 dark:text-rose-400", "text-amber-600 dark:text-amber-400",
   "text-cyan-600 dark:text-cyan-400", "text-indigo-600 dark:text-indigo-400", "text-pink-600 dark:text-pink-400",
   "text-lime-600 dark:text-lime-400", "text-orange-600 dark:text-orange-400", "text-blue-600 dark:text-blue-400",
-  "text-green-600 dark:text-green-400", "text-red-600 dark:text-red-400", "text-purple-600 dark:text-purple-400",
-  "text-yellow-600 dark:text-yellow-400", "text-fuchsia-600 dark:text-fuchsia-400", "text-slate-500 dark:text-slate-400",
-  "text-zinc-600 dark:text-zinc-400", "text-stone-600 dark:text-stone-400",
 ];
 
 const RAW_CARDS = [
-  { id: 1,  content: "Roller i grupp",          icon: <FaTheaterMasks  className="text-2xl" />, matchId: 1,  textColor: CARD_COLORS[0]  },
-  { id: 2,  content: "T.ex. medlaren, syndabocken, lustigkurren", icon: <FaUsers className="text-2xl" />, matchId: 1, textColor: CARD_COLORS[10] },
-  { id: 3,  content: "Primärgrupp",             icon: <FaHeart         className="text-2xl" />, matchId: 2,  textColor: CARD_COLORS[5]  },
-  { id: 4,  content: "Nära och personlig, t.ex. familjen", icon: <FaHandsHelping className="text-2xl" />, matchId: 2, textColor: CARD_COLORS[15] },
-  { id: 5,  content: "Social smitta",           icon: <FaComments      className="text-2xl" />, matchId: 3,  textColor: CARD_COLORS[2]  },
-  { id: 6,  content: "Känslor och beteenden sprids i gruppen", icon: <FaEye className="text-2xl" />, matchId: 3, textColor: CARD_COLORS[12] },
-  { id: 7,  content: "Status",                  icon: <FaStar          className="text-2xl" />, matchId: 4,  textColor: CARD_COLORS[8]  },
-  { id: 8,  content: "Hög status — andra lyssnar och tar åsikten på allvar", icon: <FaUserAlt className="text-2xl" />, matchId: 4, textColor: CARD_COLORS[3]  },
-  { id: 9,  content: "Normer",                  icon: <FaBalanceScale  className="text-2xl" />, matchId: 5,  textColor: CARD_COLORS[14] },
-  { id: 10, content: "Hur man bör bete sig, inte vad som är tillåtet", icon: <FaGavel className="text-2xl" />, matchId: 5, textColor: CARD_COLORS[7]  },
-  { id: 11, content: "Sociala sanktioner",      icon: <FaShieldAlt     className="text-2xl" />, matchId: 6,  textColor: CARD_COLORS[1]  },
-  { id: 12, content: "Belöning eller bestraffning för att följa normer", icon: <FaCheck className="text-2xl" />, matchId: 6, textColor: CARD_COLORS[11] },
-  { id: 13, content: "Konformitet",             icon: <FaUsers         className="text-2xl" />, matchId: 7,  textColor: CARD_COLORS[6]  },
-  { id: 14, content: "Att anpassa sig och göra som gruppen", icon: <FaCheck className="text-2xl" />, matchId: 7,  textColor: CARD_COLORS[16] },
-  { id: 15, content: "Åskådareffekt",           icon: <FaEye           className="text-2xl" />, matchId: 8,  textColor: CARD_COLORS[13] },
-  { id: 16, content: "Färre hjälper till ju fler som ser på", icon: <FaTimes className="text-2xl" />, matchId: 8, textColor: CARD_COLORS[4]  },
-  { id: 17, content: "Rosenthaleffekten",       icon: <FaLightbulb     className="text-2xl" />, matchId: 9,  textColor: CARD_COLORS[9]  },
-  { id: 18, content: "Positiva förväntningar höjer prestationen", icon: <FaStar className="text-2xl" />, matchId: 9, textColor: CARD_COLORS[17] },
-  { id: 19, content: "Social maskning",         icon: <FaBrain         className="text-2xl" />, matchId: 10, textColor: CARD_COLORS[18] },
-  { id: 20, content: "Jobbar mindre hårt i grupp än själv", icon: <FaHeart className="text-2xl" />, matchId: 10, textColor: CARD_COLORS[19] },
+  { id: 1,  content: "Roller i grupp",       icon: <FaTheaterMasks  className="text-2xl" />, matchId: 1, textColor: CARD_COLORS[0]  },
+  { id: 2,  content: "T.ex. ledare, medlare, syndabock", icon: <FaUsers className="text-2xl" />, matchId: 1, textColor: CARD_COLORS[10] },
+  { id: 3,  content: "Primärgrupp",          icon: <FaHeart         className="text-2xl" />, matchId: 2, textColor: CARD_COLORS[5]  },
+  { id: 4,  content: "Familjen",             icon: <FaHandsHelping  className="text-2xl" />, matchId: 2, textColor: CARD_COLORS[7]  },
+  { id: 5,  content: "Normer",               icon: <FaBalanceScale  className="text-2xl" />, matchId: 3, textColor: CARD_COLORS[2]  },
+  { id: 6,  content: "Oskrivna regler",      icon: <FaGavel         className="text-2xl" />, matchId: 3, textColor: CARD_COLORS[9]  },
+  { id: 7,  content: "Konformitet",          icon: <FaUsers         className="text-2xl" />, matchId: 4, textColor: CARD_COLORS[8]  },
+  { id: 8,  content: "Att göra som gruppen", icon: <FaCheck         className="text-2xl" />, matchId: 4, textColor: CARD_COLORS[3]  },
+  { id: 9,  content: "Åskådareffekt",        icon: <FaEye           className="text-2xl" />, matchId: 5, textColor: CARD_COLORS[4]  },
+  { id: 10, content: "Färre hjälper när fler ser på", icon: <FaTimes className="text-2xl" />, matchId: 5, textColor: CARD_COLORS[11] },
+  { id: 11, content: "Rosenthaleffekten",    icon: <FaLightbulb     className="text-2xl" />, matchId: 6, textColor: CARD_COLORS[6]  },
+  { id: 12, content: "Tro gott — hen lyckas bättre", icon: <FaStar  className="text-2xl" />, matchId: 6, textColor: CARD_COLORS[1]  },
 ];
 
+const TOTAL_PAIRS = RAW_CARDS.length / 2;
+
 const SNABBFAKTA = [
-  { emoji: "🎭", text: "I en grupp uppstår ofta olika roller, t.ex. ledaren, medlaren eller syndabocken." },
-  { emoji: "👪", text: "Primärgrupper är nära och personliga, t.ex. familjen — sekundärgrupper är stora och formella." },
-  { emoji: "🦠", text: "Social smitta innebär att känslor och beteenden sprids snabbt i en grupp." },
-  { emoji: "⭐", text: "Hög status innebär att andra lyssnar mer på vad du säger och tar dina åsikter på allvar." },
-  { emoji: "📏", text: "Normer handlar om hur man bör bete sig — inte om vad som är förbjudet eller tillåtet." },
-  { emoji: "👀", text: "Åskådareffekten gör att färre ingriper ju fler som bevittnar en nödsituation." },
-  { emoji: "🧠", text: "Positiva förväntningar på en person kan faktiskt förbättra dennes prestation (Rosenthaleffekten)." },
-  { emoji: "🙋", text: "Konformitet innebär att man anpassar sig efter gruppens åsikter, även mot bättre vetande." },
+  { emoji: "🎭", text: "I en grupp får olika personer olika roller. Till exempel ledare eller medlare." },
+  { emoji: "👪", text: "Familjen är en nära grupp. En skolklass är en stor grupp." },
+  { emoji: "🦠", text: "Känslor kan spridas snabbt i en grupp. Det kallas social smitta." },
+  { emoji: "⭐", text: "Hög status betyder att fler lyssnar på dig." },
+  { emoji: "📏", text: "Normer visar hur man bör bete sig. Det är inga lagar." },
+  { emoji: "👀", text: "Fler personer ser en olycka — färre hjälper till." },
+  { emoji: "🧠", text: "Tror du gott om en person kan hen prestera bättre." },
+  { emoji: "🙋", text: "Konformitet betyder att man gör som gruppen." },
 ];
 
 const BEGREPP = [
-  { term: "Socialisation",     def: "En livslång process där individen påverkas av normer, värderingar och attityder — mest av 'signifikanta andra', t.ex. familjen." },
-  { term: "Primärgrupp",       def: "En liten, nära och personlig grupp med starka känslomässiga band, t.ex. familjen eller nära vänner." },
-  { term: "Sekundärgrupp",     def: "En stor, formell grupp med mer opersonliga relationer, t.ex. en arbetsplats eller skolklass." },
-  { term: "Social smitta",     def: "Att beteenden, känslor, idéer eller tillstånd sprids mellan medlemmarna i en grupp." },
-  { term: "Status",            def: "En persons sociala ställning i gruppen. Hög status ger mer inflytande och uppmärksamhet, låg status ger mindre." },
-  { term: "Normer",            def: "Oskrivna, delade förväntningar på hur man bör tänka, känna och bete sig i en grupp — till skillnad från lagar och regler." },
-  { term: "Sociala sanktioner",def: "Belöningar (t.ex. beröm, komplimanger, likes) eller bestraffningar (t.ex. kritik, utskällning, utfrysning) som styr beteende efter normer." },
-  { term: "Konformitet",       def: "Att anpassa sig efter gruppens förväntningar och göra som de andra, även om man egentligen tycker annorlunda." },
-  { term: "Åskådareffekt",     def: "Ju fler som bevittnar en nödsituation, desto mindre sannolikt att någon enskild person ingriper — ansvaret sprids ut i gruppen." },
-  { term: "Social maskning",   def: "Att man anstränger sig mindre när man arbetar i grupp än när man utför samma uppgift ensam (social loafing)." },
+  { term: "Socialisation",      def: "Vi lär oss normer och värderingar hela livet. Mest av familjen." },
+  { term: "Primärgrupp",        def: "En liten grupp som står dig nära. Till exempel familjen." },
+  { term: "Sekundärgrupp",      def: "En stor grupp med mer formella regler. Till exempel en skolklass." },
+  { term: "Social smitta",      def: "Känslor eller beteenden sprids mellan personer i en grupp." },
+  { term: "Status",             def: "Hög status betyder mer makt och mer uppmärksamhet i gruppen." },
+  { term: "Normer",             def: "Oskrivna regler för hur man bör bete sig i en grupp." },
+  { term: "Sociala sanktioner", def: "Belöning om du följer normen. Straff om du bryter mot den." },
+  { term: "Konformitet",        def: "Att göra som gruppen gör, även om du tycker annorlunda." },
+  { term: "Åskådareffekt",      def: "Fler som ser en olycka — färre som hjälper till." },
+  { term: "Social maskning",    def: "Att jobba mindre hårt i grupp än när man är ensam." },
 ];
 
 const SCENARIOS: Scenario[] = [
   {
     id: 1,
     emoji: "🏥",
-    situation: "Du jobbar i ett team på fyra undersköterskor.\nEn kollega får ofta skulden när något går fel i teamet, även när det inte är hens fel.",
-    optionA: "Du tänker att gruppen behöver en syndabock för att fungera och låter det vara.",
-    optionB: "Du säger ifrån och påpekar att ansvaret bör delas rättvist i teamet.",
+    situation: "Du jobbar i ett team.\nEn kollega får ofta skulden.\nÄven när det inte är hens fel.",
+    optionA: "Du låter det vara.",
+    optionB: "Du säger ifrån. Ansvaret ska delas.",
     correct: "B",
-    explanation: "Att alltid lägga skulden på samma person är en osund grupproll (syndabocken) som kan skada både individen och arbetsklimatet.\nAtt säga ifrån är ett sätt att bryta ett destruktivt mönster.",
+    explanation: "Syndabock är en dålig roll i en grupp.\nDen skadar både person och stämning.\nSäg ifrån om du ser det hända.",
   },
   {
     id: 2,
     emoji: "🚑",
-    situation: "Du är en av tio personer som ser någon ramla ihop på gatan.\nIngen annan verkar göra något.",
-    optionA: "Du antar att någon annan redan har larmat och går vidare.",
-    optionB: "Du går fram, pekar ut en specifik person och ber hen ringa 112 medan du hjälper.",
+    situation: "Du ser någon ramla på gatan.\nMånga andra ser det också.\nIngen gör något.",
+    optionA: "Du tänker att någon annan hjälper.",
+    optionB: "Du pekar på en person och säger: Ring 112!",
     correct: "B",
-    explanation: "Detta är ett klassiskt exempel på åskådareffekten — ansvaret sprids ut i gruppen.\nGenom att peka ut en specifik person bryter du ansvarsspridningen och ökar chansen att någon faktiskt hjälper till.",
+    explanation: "Fler personer — mindre ansvar känns för var och en.\nDet kallas åskådareffekten.\nPeka ut en person. Då blir hjälpen snabbare.",
   },
   {
     id: 3,
     emoji: "👩‍⚕️",
-    situation: "En ny kollega har fått ett rykte om att vara 'lat' innan hen ens har börjat jobba.\nDu märker att du själv börjar bemöta hen kyligt.",
-    optionA: "Du fortsätter bemöta kollegan utifrån ryktet — det är säkert sant.",
-    optionB: "Du påminner dig om Rosenthaleffekten och ger kollegan en chans utan förutfattade meningar.",
+    situation: "En ny kollega har fått ett dåligt rykte.\nDu märker att du är kall mot hen.",
+    optionA: "Du tror på ryktet.",
+    optionB: "Du ger kollegan en ärlig chans.",
     correct: "B",
-    explanation: "Förväntningar — positiva som negativa — påverkar hur vi bemöter andra, vilket i sin tur påverkar hur de faktiskt presterar (självuppfyllande profetia).\nAtt vara medveten om detta hjälper dig att bemöta alla rättvist.",
+    explanation: "Dina förväntningar styr hur du behandlar andra.\nDet kallas Rosenthaleffekten.\nGe alla en chans utan att döma i förväg.",
   },
   {
     id: 4,
     emoji: "🧑‍🤝‍🧑",
-    situation: "I ett grupparbete märker du att du jobbar mycket mindre hårt än du skulle gjort om du gjort uppgiften själv.",
-    optionA: "Du accepterar det — det är normalt att dra ner på tempot i grupp.",
-    optionB: "Du funderar på varför — kanske känns målen otydliga eller din insats oviktig — och tar upp det med gruppen.",
+    situation: "Du gör ett grupparbete.\nDu märker att du jobbar mindre än om du var ensam.",
+    optionA: "Du accepterar det. Det är normalt.",
+    optionB: "Du frågar varför och pratar med gruppen.",
     correct: "B",
-    explanation: "Detta kallas social maskning (social loafing).\nAtt identifiera orsaken — otydliga mål, låg motivation eller att insatsen känns oviktig — är första steget för att motverka den.",
+    explanation: "Det kallas social maskning.\nOtydliga mål gör att man kämpar mindre.\nPrata om det för att lösa det.",
   },
 ];
 
 const QUIZ: QuizQuestion[] = [
   {
     id: 1,
-    question: "Vilka roller kan finnas i en grupp?",
-    options: ["Bara ledaren och medlemmarna.", "Den dominante, anklagaren, medlaren, syndabocken, martyren och lustigkurren.", "Chefen och de anställda.", "Ingen särskild rollfördelning uppstår i grupper."],
+    question: "Vilka roller finns i en grupp?",
+    options: ["Bara en ledare.", "Till exempel ledare, medlare och syndabock.", "Ingen roll alls.", "Bara prataren."],
     correct: 1,
-    explanation: "I grupper uppstår ofta flera olika roller som skapar balans, t.ex. den dominante, anklagaren, medlaren, syndabocken, martyren och lustigkurren.",
+    explanation: "I en grupp får olika personer olika roller.",
   },
   {
     id: 2,
-    question: "Vad kännetecknar en primärgrupp?",
-    options: ["En stor och formell grupp.", "En nära och personlig grupp, t.ex. familjen.", "En grupp man bara träffar på jobbet.", "En grupp helt utan känslomässiga band."],
+    question: "Vad är en primärgrupp?",
+    options: ["En stor grupp på jobbet.", "En nära grupp, till exempel familjen.", "En grupp du aldrig träffar.", "Samma som en sekundärgrupp."],
     correct: 1,
-    explanation: "Primärgruppen är nära och personlig, t.ex. familjen, medan sekundärgruppen är stor och formell.",
+    explanation: "Primärgruppen är nära och personlig. Till exempel familjen.",
   },
   {
     id: 3,
     question: "Vad är social smitta?",
-    options: ["Att man blir fysiskt sjuk av att vara i grupp.", "Att beteenden, känslor eller tillstånd sprids i en grupp.", "Ett medicinskt begrepp för virussmitta.", "Att man bara smittas av dåligt humör hemma."],
+    options: ["En sjukdom.", "Känslor och beteenden som sprids i en grupp.", "Ett ord för vänskap.", "Ett spel."],
     correct: 1,
-    explanation: "Social smitta innebär att beteenden, känslor, idéer eller tillstånd sprids mellan medlemmarna i en grupp.",
+    explanation: "Social smitta betyder att känslor sprids mellan personer i en grupp.",
   },
   {
     id: 4,
-    question: "Vad innebär hög status i en grupp?",
-    options: ["Man blir ofta ignorerad.", "Andra lyssnar på personen och tar hens åsikter på allvar.", "Man får alltid skulden för misstag.", "Man påverkar aldrig gruppens beslut."],
+    question: "Vad betyder hög status i en grupp?",
+    options: ["Du blir ignorerad.", "Fler lyssnar på dig.", "Du får alltid skulden.", "Du syns inte."],
     correct: 1,
-    explanation: "Hög status innebär att andra lyssnar på personen och tar hens åsikter på större allvar, medan låg status ger mindre uppmärksamhet och inflytande.",
+    explanation: "Hög status betyder att fler lyssnar och bryr sig om vad du säger.",
   },
   {
     id: 5,
-    question: "Vad handlar normer om?",
-    options: ["Vad som är juridiskt förbjudet.", "Hur de flesta i en grupp tycker att man bör göra.", "Officiella lagar och regler.", "Bara skriftliga regler på en arbetsplats."],
+    question: "Vad är normer?",
+    options: ["Lagar i Sverige.", "Oskrivna regler för hur man bör bete sig.", "Bara skolregler.", "Något bara barn följer."],
     correct: 1,
-    explanation: "Normer säger inte vad som är förbjudet eller tillåtet som lagar gör — de handlar om hur de flesta i en grupp tycker att man bör bete sig.",
+    explanation: "Normer är oskrivna regler. De är inte samma sak som lagar.",
   },
   {
     id: 6,
-    question: "Vad är exempel på sociala sanktioner?",
-    options: ["Bara skriftliga varningar.", "Beröm och komplimanger (belöning), kritik och utfrysning (bestraffning).", "Enbart juridiska påföljder.", "Sanktioner finns bara i arbetslivet."],
+    question: "Vad är konformitet?",
+    options: ["Att alltid säga emot.", "Att göra som gruppen gör.", "Att vara ledare.", "Att vara ensam."],
     correct: 1,
-    explanation: "Sociala sanktioner kan vara belöningar som beröm, komplimanger och likes, eller bestraffningar som kritik, utskällning och att bli ignorerad.",
+    explanation: "Konformitet betyder att man anpassar sig efter gruppen.",
   },
   {
     id: 7,
-    question: "Vad är konformitet?",
-    options: ["Att alltid gå emot gruppen.", "Att man anpassar sig efter gruppen och gör som de andra.", "Att vara ensam i sina åsikter.", "Ett annat ord för ledarskap."],
+    question: "Vad är åskådareffekten?",
+    options: ["Fler som hjälper snabbare.", "Färre hjälper till när fler ser på.", "Något som bara händer barn.", "Att man alltid ringer polisen."],
     correct: 1,
-    explanation: "Konformitet innebär att man anpassar sig efter gruppens förväntningar och gör som de andra, ofta även om man egentligen tycker annorlunda.",
+    explanation: "Ju fler som ser en olycka, desto färre hjälper till.",
   },
   {
     id: 8,
-    question: "Vad visade Aschs konformitetsexperiment?",
-    options: ["Nästan ingen föll för grupptryck.", "Cirka 75% föll för grupptrycket i en enkel synuppgift.", "Deltagarna vägrade svara alls.", "Experimentet handlade om lydnad mot auktoritet, inte grupptryck."],
+    question: "Vad händer om du tror gott om en person?",
+    options: ["Inget händer.", "Hen kan prestera bättre. Det kallas Rosenthaleffekten.", "Hen blir arg.", "Hen presterar sämre."],
     correct: 1,
-    explanation: "I Aschs experiment föll ca 75% av deltagarna för grupptrycket minst en gång, trots att uppgiften (att jämföra linjers längd) var enkel och inget hot förelåg.",
-  },
-  {
-    id: 9,
-    question: "Vad är åskådareffekten?",
-    options: ["Att fler personer alltid hjälper snabbare.", "Att färre ingriper i en nödsituation ju fler åskådare som finns.", "Ett fenomen som bara gäller barn.", "Att man alltid ringer polisen direkt."],
-    correct: 1,
-    explanation: "Åskådareffekten innebär att sannolikheten att någon ingriper i en nödsituation minskar ju fler åskådare som finns, på grund av ansvarsspridning.",
-  },
-  {
-    id: 10,
-    question: "Vad handlar Zimbardos sju steg mot ondska om?",
-    options: ["Hur man blir en bra ledare.", "En beskrivning av hur vanliga människor steg för steg kan förledas till att göra onda handlingar.", "Ett recept för konflikthantering.", "En modell för hur grupper fattar bra beslut."],
-    correct: 1,
-    explanation: "Zimbardos sju steg beskriver hur vanliga, goda människor stegvis kan förledas till onda handlingar — via t.ex. avhumanisering, anonymitet och blind lydnad mot auktoritet.",
+    explanation: "Positiva förväntningar kan hjälpa en person att lyckas bättre.",
   },
 ];
 
 const SAMMANFATTNING = [
-  { emoji: "🎭", text: "I grupper uppstår ofta olika roller som skapar balans — t.ex. ledaren, medlaren och syndabocken." },
-  { emoji: "👪", text: "Socialisation är en livslång process där vi påverkas mest av våra närmaste, 'signifikanta andra'." },
-  { emoji: "📏", text: "Normer handlar om hur man bör bete sig — inte om vad som är förbjudet enligt lag." },
-  { emoji: "🏅", text: "Sociala sanktioner (belöning/bestraffning) styr oss att följa gruppens normer." },
-  { emoji: "🙋", text: "Konformitet innebär att vi anpassar oss efter gruppen — ibland mot bättre vetande." },
-  { emoji: "👀", text: "Åskådareffekten gör att färre hjälper till ju fler som bevittnar en nödsituation." },
-  { emoji: "🌟", text: "Positiva eller negativa förväntningar kan bli självuppfyllande profetior (Rosenthaleffekten)." },
-  { emoji: "⚠️", text: "Zimbardos sju steg visar hur vanliga människor stegvis kan förledas till onda handlingar." },
+  { emoji: "🎭", text: "Olika roller finns i en grupp. Till exempel ledare och medlare." },
+  { emoji: "👪", text: "Vi lär oss normer hela livet. Mest av familjen." },
+  { emoji: "📏", text: "Normer är oskrivna regler. Inte samma sak som lagar." },
+  { emoji: "🏅", text: "Belöning eller straff får oss att följa normer." },
+  { emoji: "🙋", text: "Konformitet betyder att göra som gruppen." },
+  { emoji: "👀", text: "Fler åskådare — färre som hjälper till." },
+  { emoji: "🌟", text: "Tro gott om andra. Det kan hjälpa dem att lyckas." },
+  { emoji: "⚠️", text: "Små steg kan leda till onda handlingar i en grupp." },
 ];
 
 const FAKTARUTOR = [
@@ -236,81 +209,73 @@ const FAKTARUTOR = [
     id: "roller",
     emoji: "🎭",
     title: "Roller i grupp",
-    short: "Deltagarna intar olika roller som skapar balans i gruppen.",
+    short: "Olika personer får olika roller i en grupp.",
     bullets: [
-      "Den dominante/överlägsne tar ofta plats och styr samtalet.",
-      "Anklagaren riktar kritik mot andra i gruppen.",
-      "Medlaren försöker lösa konflikter och skapa samförstånd.",
-      "Syndabocken får ofta skulden när något går fel.",
-      "Martyren offrar sig själv för gruppen.",
-      "Lustigkurren lättar upp stämningen med humor.",
+      "Ledaren bestämmer mycket.",
+      "Medlaren löser bråk.",
+      "Syndabocken får ofta skulden.",
+      "Lustigkurren gör gruppen glad.",
     ],
   },
   {
     id: "social-maskning",
     emoji: "⚙️",
     title: "Social maskning",
-    short: "Man jobbar ofta mindre hårt i grupp än ensam.",
+    short: "Man jobbar mindre hårt i grupp än ensam.",
     bullets: [
-      "Ringelmann (1913): en person drog 63 kg, tre personer 53 kg var, fler än åtta bara 31 kg var.",
-      "Risken ökar vid dålig motivation och otydliga gruppmål.",
-      "Risken ökar om uppgiften känns oviktig eller irrelevant.",
-      "Risken ökar om den egna insatsen upplevs som oviktig.",
-      "Motverkas genom tydliga individuella ansvarsområden och mål.",
+      "Ringelmann testade detta år 1913.",
+      "En person drog 63 kg själv.",
+      "Åtta personer drog bara 31 kg var.",
+      "Tydliga mål hjälper mot social maskning.",
     ],
   },
   {
     id: "rosenthal",
     emoji: "🌟",
-    title: "Rosenthaleffekten & självuppfyllande profetia",
-    short: "Förväntningar påverkar verkligheten.",
+    title: "Rosenthaleffekten",
+    short: "Förväntningar kan styra hur andra lyckas.",
     bullets: [
-      "Positiva förväntningar på en person kan förbättra dennes prestation.",
-      "Tandläkarstudenterna 1993: elever som av misstag togs in trots lägre poäng presterade lika bra som övriga, eftersom lärarna inte visste vilka det var.",
-      "Självuppfyllande profetia: mina förväntningar på andra styr hur jag bemöter dem — och därmed hur de agerar.",
-      "Gäller särskilt i vårdande och pedagogiska yrken, t.ex. sjuksköterska eller lärare.",
-      "Placebo- och noceboeffekten bygger på samma princip, fast kopplat till hälsa.",
+      "Tror du gott om någon kan hen lyckas bättre.",
+      "Tror du illa om någon kan hen lyckas sämre.",
+      "Detta kallas en självuppfyllande profetia.",
+      "Viktigt att tänka på i vårdyrken.",
     ],
   },
   {
     id: "askadareffekt",
     emoji: "🙋",
-    title: "Åskådareffekten och att hjälpa till",
-    short: "Varför hjälper vi — eller låter bli?",
+    title: "Åskådareffekten",
+    short: "Varför hjälper vi — eller inte?",
     bullets: [
-      "Vi måste först uppfatta att något är fel och bedöma det som en nödsituation.",
-      "Vi måste känna personligt ansvar — är du ensam tar du oftare ansvar.",
-      "Vi väger kostnaden för att ingripa mot kostnaden för att låta bli.",
-      "Ju fler åskådare, desto mer ansvarsspridning och mindre sannolikt att någon hjälper.",
-      "Man hjälper lättare någon man känner än en helt okänd person.",
+      "Vi måste se att något är fel.",
+      "Vi måste känna eget ansvar.",
+      "Fler åskådare — mindre ansvar känns.",
+      "Peka ut en person. Be just hen om hjälp.",
     ],
   },
   {
-    id: "lydnad",
+    id: "milgram",
     emoji: "⚡",
-    title: "Lydnad och Milgrams experiment",
+    title: "Milgrams lydnadsexperiment",
     short: "Varför lydde så många en auktoritet?",
     bullets: [
-      "Milgram (1960-talet) undersökte hur långt vanliga människor går när en auktoritet ber dem skada någon annan.",
-      "25 av 40 deltagare gav de högsta elchockerna (450 volt).",
-      "Förklaringar: opersonligt avstånd, upplevde sig inte ansvariga själva, trodde det var för en god sak.",
-      "Lydnaden ökade med närhet till auktoriteten och minskade med närhet till offret.",
-      "Om en annan person i rummet protesterade minskade lydnaden kraftigt.",
+      "Milgram testade lydnad på 1960-talet.",
+      "25 av 40 personer lydde hela vägen.",
+      "Många kände sig inte själva ansvariga.",
+      "Närhet till offret minskade lydnaden.",
     ],
   },
   {
     id: "zimbardo",
     emoji: "🔥",
-    title: "Zimbardos sju steg mot ondska",
-    short: "Vägen mot ondska är hal — sju steg att känna igen.",
+    title: "Zimbardos sju steg",
+    short: "Så kan vanliga människor göra onda saker.",
     bullets: [
-      "1. Att obetänksamt ta det första lilla steget.",
-      "2. Avhumanisering av andra ('vi och dom').",
-      "3. Anonymitet.",
-      "4. Överlåtande av det personliga ansvaret till någon annan.",
-      "5. Blind auktoritetslydnad.",
-      "6. Okritisk anpassning till gruppnormer.",
-      "7. Tolerans av ondska genom att förhålla sig passiv.",
+      "1. Ta ett litet första steg.",
+      "2. Se andra som mindre värda.",
+      "3. Vara anonym.",
+      "4. Lämna över ansvaret till någon annan.",
+      "5. Lyda en auktoritet blint.",
     ],
   },
 ];
@@ -336,10 +301,10 @@ function HeroSection() {
           Socialpsykologi<br /><span className="text-white/80">– bland andra!</span>
         </h1>
         <p className="text-lg sm:text-xl text-white/90 leading-relaxed max-w-xl mb-8">
-          Lär dig om roller, normer, grupptryck och förväntningars kraft — och vad klassiska experiment som Milgram, Asch och Zimbardo lär oss om människors beteende i grupp.
+          Lär dig hur grupper fungerar. Roller, normer och grupptryck. Med enkla ord och korta meningar.
         </p>
         <div className="flex flex-wrap gap-3 text-sm font-medium">
-          {["🎮 Memory-spel", "📋 Snabbfakta", "📖 Begrepp", "💬 Scenariofrågor", "🧠 Quiz"].map((tag) => (
+          {["✅ Lätt svenska", "🎮 Memory-spel", "📋 Snabbfakta", "📖 Begrepp", "💬 Scenariofrågor", "🧠 Quiz"].map((tag) => (
             <span key={tag} className="rounded-full bg-white/20 px-4 py-2">{tag}</span>
           ))}
         </div>
@@ -373,7 +338,7 @@ function MemoryGameSection() {
       if (cardA.matchId === cardB.matchId) {
         setTimeout(() => {
           setCards((prev) => prev.map((c) => next.includes(c.id) ? { ...c, isMatched: true, isSelected: false } : { ...c, isSelected: false }));
-          setMatches((m) => { const nm = m + 1; if (nm === 10) setTimeout(() => setDone(true), 600); return nm; });
+          setMatches((m) => { const nm = m + 1; if (nm === TOTAL_PAIRS) setTimeout(() => setDone(true), 600); return nm; });
           setSelected([]);
         }, 700);
       } else { setTimeout(() => { setCards((prev) => prev.map((c) => ({ ...c, isSelected: false }))); setSelected([]); }, 900); }
@@ -385,18 +350,18 @@ function MemoryGameSection() {
       <SectionHeader emoji="🎮" title="Memory-spel" subtitle="Klicka på två kort som hör ihop. Matchade par försvinner." />
       <div className="rounded-xl border border-border bg-card p-4 mb-6 flex flex-wrap gap-6 items-center justify-between">
         <div className="flex gap-6 text-sm">
-          {[{ label: "Matchningar", value: matches, color: "text-emerald-600 dark:text-emerald-400" }, { label: "Drag", value: moves, color: "text-primary" }, { label: "Träffsäkerhet", value: `${accuracy}%`, color: "text-amber-600 dark:text-amber-400" }, { label: "Kvar", value: 10 - matches, color: "text-muted-foreground" }].map(({ label, value, color }) => (
+          {[{ label: "Matchningar", value: matches, color: "text-emerald-600 dark:text-emerald-400" }, { label: "Drag", value: moves, color: "text-primary" }, { label: "Träffsäkerhet", value: `${accuracy}%`, color: "text-amber-600 dark:text-amber-400" }, { label: "Kvar", value: TOTAL_PAIRS - matches, color: "text-muted-foreground" }].map(({ label, value, color }) => (
             <div key={label} className="text-center"><div className={`text-2xl font-bold ${color}`}>{value}</div><div className="text-muted-foreground">{label}</div></div>
           ))}
         </div>
         <button onClick={initGame} className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"><FaSync className="text-xs" /> Nytt spel</button>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
         {cards.map((card) => (
-          <div key={card.id} onClick={() => pickCard(card.id)} className={["relative h-28 sm:h-32 rounded-xl border transition-all duration-500", card.isMatched ? "scale-0 opacity-0 pointer-events-none" : "scale-100 opacity-100 cursor-pointer hover:scale-105", card.isSelected ? "ring-2 ring-primary border-primary shadow-lg shadow-primary/20" : "border-border bg-card hover:border-primary/50"].join(" ")}>
-            <div className="absolute inset-0 flex flex-col items-center justify-center p-2 gap-2">
+          <div key={card.id} onClick={() => pickCard(card.id)} className={["relative h-32 sm:h-36 rounded-xl border transition-all duration-500", card.isMatched ? "scale-0 opacity-0 pointer-events-none" : "scale-100 opacity-100 cursor-pointer hover:scale-105", card.isSelected ? "ring-2 ring-primary border-primary shadow-lg shadow-primary/20" : "border-border bg-card hover:border-primary/50"].join(" ")}>
+            <div className="absolute inset-0 flex flex-col items-center justify-center p-3 gap-2">
               <span className={card.textColor}>{card.icon}</span>
-              <span className={`text-xs text-center font-medium leading-tight ${card.textColor}`}>{card.content}</span>
+              <span className={`text-sm text-center font-medium leading-tight ${card.textColor}`}>{card.content}</span>
             </div>
           </div>
         ))}
@@ -537,11 +502,12 @@ function ScenarierSection() {
 function QuizSection() {
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [submitted, setSubmitted] = useState(false);
+  const total = QUIZ.length;
   const score = submitted ? QUIZ.filter((q) => answers[q.id] === q.correct).length : 0;
   function reset() { setAnswers({}); setSubmitted(false); }
   return (
     <section>
-      <SectionHeader emoji="🧠" title="Quiz — 10 frågor" subtitle="Välj ett svar på varje fråga. Klicka på Rätta när du är klar." />
+      <SectionHeader emoji="🧠" title={`Quiz — ${total} frågor`} subtitle="Välj ett svar på varje fråga. Klicka på Rätta när du är klar." />
       <div className="space-y-6">
         {QUIZ.map((q, qi) => {
           const chosen = answers[q.id]; const isCorrect = chosen === q.correct;
@@ -570,15 +536,15 @@ function QuizSection() {
         {submitted ? (
           <>
             <div className="text-center sm:text-left">
-              <div className={`text-4xl font-bold ${score >= 8 ? "text-emerald-600 dark:text-emerald-400" : score >= 5 ? "text-amber-600 dark:text-amber-400" : "text-red-600 dark:text-red-400"}`}>{score} / 10</div>
-              <div className="text-muted-foreground text-sm mt-1">{score === 10 ? "Perfekt! 🏆" : score >= 8 ? "Bra jobbat! 🌟" : score >= 5 ? "Bra försök! Läs igenom igen." : "Försök igen! Du lär dig mer för varje gång."}</div>
+              <div className={`text-4xl font-bold ${score >= total * 0.75 ? "text-emerald-600 dark:text-emerald-400" : score >= total * 0.5 ? "text-amber-600 dark:text-amber-400" : "text-red-600 dark:text-red-400"}`}>{score} / {total}</div>
+              <div className="text-muted-foreground text-sm mt-1">{score === total ? "Perfekt! 🏆" : score >= total * 0.75 ? "Bra jobbat! 🌟" : score >= total * 0.5 ? "Bra försök! Läs igenom igen." : "Försök igen! Du lär dig mer för varje gång."}</div>
             </div>
             <button onClick={reset} className="rounded-lg bg-primary px-6 py-3 font-semibold text-primary-foreground hover:bg-primary/90 transition-colors">Gör om quizet</button>
           </>
         ) : (
           <>
-            <p className="text-muted-foreground text-sm">{Object.keys(answers).length} av 10 frågor besvarade.</p>
-            <button onClick={() => setSubmitted(true)} disabled={Object.keys(answers).length < 10} className="rounded-lg bg-primary px-6 py-3 font-semibold text-primary-foreground hover:bg-primary/90 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">Rätta svaren</button>
+            <p className="text-muted-foreground text-sm">{Object.keys(answers).length} av {total} frågor besvarade.</p>
+            <button onClick={() => setSubmitted(true)} disabled={Object.keys(answers).length < total} className="rounded-lg bg-primary px-6 py-3 font-semibold text-primary-foreground hover:bg-primary/90 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">Rätta svaren</button>
           </>
         )}
       </div>
