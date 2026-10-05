@@ -28,6 +28,12 @@ const FEATURE_DATA: FeatureItem[] = [
     title: "Vård och omsorg",
     links: {
       "Grundläggande omvårdnad": "/vard-och-omsorg/grundlaggande-omvardnad",
+      "Personlig hygien": "/vard-och-omsorg/personlig-hygien",
+      "Förflyttningsteknik": "/vard-och-omsorg/forflyttningsteknik",
+      "Nutrition och kost": "/vard-och-omsorg/nutrition-och-kost",
+      "Sömn och vila": "/vard-och-omsorg/somn-och-vila",
+      "Observation av patienters hälsotillstånd": "/vard-och-omsorg/observation-av-patienters-halsostand",
+      "Dokumentation och rapportering": "/vard-och-omsorg/dokumentation-och-rapportering",
     },
     items: [
       "Grundläggande omvårdnad",
@@ -56,7 +62,11 @@ const FEATURE_DATA: FeatureItem[] = [
     id: "psykiatri",
     Icon: FaBrain,
     title: "Psykiatri",
+    links: {
+      "Socialpsykologi – bland andra!": "/psykiatri/socialpsykologi-bland-andra",
+    },
     items: [
+      "Socialpsykologi – bland andra!",
       "Depression",
       "Ångest",
       "Bipolär sjukdom",
