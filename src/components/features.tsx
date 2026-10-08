@@ -49,7 +49,11 @@ const FEATURE_DATA: FeatureItem[] = [
     id: "medicin",
     Icon: FaStethoscope,
     title: "Medicin",
+    links: {
+      "Vävnader och organ – så är kroppen uppbyggd": "/medicin/vavnader-och-organ",
+    },
     items: [
+      "Vävnader och organ – så är kroppen uppbyggd",
       "Anatomi (kroppens uppbyggnad)",
       "Fysiologi (hur kroppen fungerar)",
       "Vanliga sjukdomar",
