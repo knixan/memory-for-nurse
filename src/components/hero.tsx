@@ -34,10 +34,6 @@ export function Hero() {
           </p>
 
           <div className="mt-8 flex flex-wrap gap-4">
-            <Button size="lg" className="bg-sky-600 hover:bg-sky-700 px-8">
-              Börja studera
-            </Button>
-
             <Button variant="outline" size="lg" className="border-white/30 bg-white/10 backdrop-blur hover:bg-white/20 text-white hover:text-white px-8">
               Se alla ämnen
             </Button>

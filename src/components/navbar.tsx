@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
-import { Button } from "@/components/ui/button";
 import {
   FaHandsHelping,
   FaStethoscope,
@@ -125,15 +124,11 @@ export function Navbar() {
           </div>
 
           <Link
-            href="#"
+            href="/om-appen"
             className="rounded-md px-4 py-2 text-sm font-medium text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
           >
             Om appen
           </Link>
-
-          <Button size="sm" className="ml-2">
-            Börja studera
-          </Button>
 
           <ThemeToggle className="ml-1" />
         </div>
@@ -172,15 +167,12 @@ export function Navbar() {
           </div>
           <div className="mt-3 flex flex-col gap-2">
             <Link
-              href="#"
+              href="/om-appen"
               onClick={() => setMobileOpen(false)}
               className="rounded-lg px-3 py-2.5 text-sm font-medium text-foreground hover:bg-accent transition-colors"
             >
               Om appen
             </Link>
-            <Button size="sm" className="w-full" onClick={() => setMobileOpen(false)}>
-              Börja studera
-            </Button>
           </div>
         </div>
       )}
